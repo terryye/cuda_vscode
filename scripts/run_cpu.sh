@@ -32,7 +32,7 @@ clang \
   -Wall -Werror -Wpedantic -Wconversion  -Wsign-conversion  -Wcast-qual \
   -g -O0 \
    -fno-vectorize -fno-slp-vectorize \
-  -fno-omit-frame-pointer -fsanitize=address -fsanitize-address-use-after-scope \
+  -fno-omit-frame-pointer -fsanitize=address -fsanitize=undefined -fsanitize-address-use-after-scope \
   "$1" -o ./bin/output.bin
 
 ./bin/output.bin
