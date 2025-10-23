@@ -13,6 +13,7 @@ image = (
         .add_local_dir("week_03", remote_path="/root/week_03", ignore=FilePatternMatcher("**/output.bin*"))
         .add_local_dir("week_04", remote_path="/root/week_04", ignore=FilePatternMatcher("**/output.bin*"))
         .add_local_dir("week_05", remote_path="/root/week_05", ignore=FilePatternMatcher("**/output.bin*"))
+        .add_local_dir("week_07", remote_path="/root/week_07", ignore=FilePatternMatcher("**/output.bin*"))
 
 )
 app = modal.App("nvcc")
