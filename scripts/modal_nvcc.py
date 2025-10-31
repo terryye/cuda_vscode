@@ -7,7 +7,7 @@ image = (
         .env({
             "NCCL_DEBUG": "INFO",
         })
-        .add_local_dir("util", remote_path="/root/util")
+        .add_local_dir("util", remote_path="/root/includes/util")
         .add_local_dir("week_01", remote_path="/root/week_01", ignore=FilePatternMatcher("**/output.bin*"))
         .add_local_dir("week_02", remote_path="/root/week_02", ignore=FilePatternMatcher("**/output.bin*"))
         .add_local_dir("week_03", remote_path="/root/week_03", ignore=FilePatternMatcher("**/output.bin*"))
@@ -25,6 +25,8 @@ def compile_and_run_cuda(code_path: str):
     #subprocess.run(["find", "."])
     #subprocess.run(["pwd"])
 
-    subprocess.run(["nvcc", "-DCUDA=1", "-g", "-G", "-rdc=true", "-arch=native", code_path, "-o", "output.bin"],
+    subprocess.run(["nvcc", "-DCUDA=1", "-g", "-G", "-rdc=true", "-arch=native", 
+                    "-I/root/includes/",
+                    code_path, "-o", "output.bin"],
                    text=True,  check=True)
     subprocess.run([ "./output.bin"], text=True, check=True)

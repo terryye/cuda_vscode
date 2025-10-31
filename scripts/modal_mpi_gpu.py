@@ -9,8 +9,9 @@ image = (
             "NCCL_DEBUG": "INFO",
             "OMPI_MCA_btl_vader_single_copy_mechanism": "none", # remove this by add the SYS_PTRACE capability to docker run
         })
-        .add_local_dir("util", remote_path="/root/util")
+        .add_local_dir("util", remote_path="/root/includes/util")
         .add_local_dir("week_07", remote_path="/root/week_07", ignore=FilePatternMatcher("**/output.bin*"))
+        .add_local_dir("week_08", remote_path="/root/week_08", ignore=FilePatternMatcher("**/output.bin*"))
         .add_local_file("scripts/monitor_gpu.py", remote_path="/root/monitor_gpu.py")
 )
 
@@ -75,9 +76,15 @@ def compile_and_run_cuda(code_path: str, cuda_count: int):
     # cmd = ["mpicc", "-o", "output.bin", code_path, "-lcudart", "-L/usr/local/cuda/lib64", "-I/usr/local/cuda/include"]
     cmd = ["nvcc", "-DCUDA=1", "-g", "-G", "-rdc=true",
            "-arch=sm_80", # amphere
+           "-lmpi",
            "-lstdc++",
-           "-I/root/include",
-           "-ccbin", "mpicc", "-o", "output.bin", code_path]
+           "-lm",
+           "-lnccl",
+           "-lcudart",
+            "-I/root/includes",
+            "-I/usr/lib/x86_64-linux-gnu/openmpi/include",  # MPI include path
+            "-L/usr/lib/x86_64-linux-gnu/openmpi/lib",      # MPI library path
+           "-o", "output.bin", code_path]
 
     subprocess.run(cmd, text=True,  check=True)
 
