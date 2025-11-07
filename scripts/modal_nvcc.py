@@ -1,6 +1,7 @@
 import modal
 from modal import FilePatternMatcher
 import os
+import glob
 
 image = (
     modal.Image.from_registry(f"nvidia/cuda:12.8.0-devel-ubuntu22.04", add_python="3.11")
@@ -8,14 +9,22 @@ image = (
             "NCCL_DEBUG": "INFO",
         })
         .add_local_dir("util", remote_path="/root/includes/util")
-        .add_local_dir("week_01", remote_path="/root/week_01", ignore=FilePatternMatcher("**/output.bin*"))
-        .add_local_dir("week_02", remote_path="/root/week_02", ignore=FilePatternMatcher("**/output.bin*"))
-        .add_local_dir("week_03", remote_path="/root/week_03", ignore=FilePatternMatcher("**/output.bin*"))
-        .add_local_dir("week_04", remote_path="/root/week_04", ignore=FilePatternMatcher("**/output.bin*"))
-        .add_local_dir("week_05", remote_path="/root/week_05", ignore=FilePatternMatcher("**/output.bin*"))
-        .add_local_dir("week_07", remote_path="/root/week_07", ignore=FilePatternMatcher("**/output.bin*"))
-
 )
+
+# Dynamically add all week_* folders
+script_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.dirname(script_dir)
+week_folders = sorted(glob.glob(os.path.join(project_root, "week_*")))
+
+for week_folder in week_folders:
+    if os.path.isdir(week_folder):
+        folder_name = os.path.basename(week_folder)
+        image = image.add_local_dir(
+            folder_name,
+            remote_path=f"/root/{folder_name}",
+            ignore=FilePatternMatcher("**/output.bin*")
+        )
+
 app = modal.App("nvcc")
 
 @app.function(image=image, gpu="A100-40gb", timeout=300)
