@@ -195,7 +195,7 @@ Mkfile.old
 dkms.conf
 
 # Editor/IDE specific files
-.vscode/
+.vs
 .idea/
 *.swp
 *.swo
@@ -234,3 +234,4 @@ Makefile.in
 
 # Valgrind
 *.memcheck
+*.bin
