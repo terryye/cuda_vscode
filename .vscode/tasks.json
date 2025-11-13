@@ -1,0 +1,79 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "nvcc build active file",
+            "type": "shell",
+            "command": "mkdir",
+            "args": [
+                "-p",
+                "${fileDirname}/bin",
+                "&&",
+                "nvcc",
+                "-DCUDA=1",
+                "-g",
+                "-G",
+                "-rdc=true",
+                "-arch=sm_75",
+                "-lmpi",
+                "-lstdc++",
+                "-lm",
+                "-lnccl",
+                "-lcudart",
+                "-lcudadevrt",
+                "-I/mnt/c/users/terryye/Documents/Github/neu-hpc-for-ai",
+                "-I/usr/lib/x86_64-linux-gnu/openmpi/include",
+                "-L/usr/lib/x86_64-linux-gnu/openmpi/lib",
+                "${file}",
+                "-o",
+                "${fileDirname}/bin/${fileBasenameNoExtension}"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$nvcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Compiler: nvcc with debug flags, CUDA definitions, and MPI support"
+        },
+        {
+            "label": "nvcc build optimized",
+            "type": "shell",
+            "command": "mkdir",
+            "args": [
+                "-p",
+                "${fileDirname}/bin",
+                "&&",
+                "nvcc",
+                "-DCUDA=1",
+                "-O3",
+                "-rdc=true",
+                "-arch=sm_75",
+                "-lmpi",
+                "-lstdc++",
+                "-lm",
+                "-lnccl",
+                "-lcudart",
+                "-lcudadevrt",
+                "-I/mnt/c/users/terryye/Documents/Github/neu-hpc-for-ai",
+                "-I/usr/lib/x86_64-linux-gnu/openmpi/include",
+                "-L/usr/lib/x86_64-linux-gnu/openmpi/lib",
+                "${file}",
+                "-o",
+                "${fileDirname}/bin/${fileBasenameNoExtension}"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$nvcc"
+            ],
+            "group": "build",
+            "detail": "Compiler: nvcc with optimizations, CUDA definitions, and MPI support"
+        }
+    ]
+}

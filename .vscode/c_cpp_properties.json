@@ -1,0 +1,26 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/usr/lib/x86_64-linux-gnu/openmpi/include",
+                "/usr/local/cuda/include",
+                "/usr/local/cuda-*/include"
+            ],
+            "defines": [
+                "__CUDACC__",
+                "__NVCC__",
+                "CUDA=1"
+            ],
+            "forcedInclude": [
+                "/usr/local/cuda/include/cuda_runtime.h"
+            ],
+            "compilerPath": "/usr/local/cuda/bin/nvcc",
+            "cStandard": "c11",
+            "cppStandard": "c++14",
+            "intelliSenseMode": "linux-gcc-x64"
+        }
+    ],
+    "version": 4
+}
