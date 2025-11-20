@@ -92,4 +92,3 @@ def compile_and_run_cuda(code_path: str, cuda_count: int):
     subprocess.run([ "mpirun",
                      "--allow-run-as-root", # remove this by fixing the container
                      "-np", str(cuda_count), "./output.bin"], text=True, check=True)
-lstdc
