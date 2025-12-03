@@ -12,6 +12,7 @@ image = (
         .add_local_dir("util", remote_path="/root/includes/util")
         .add_local_dir("week_07", remote_path="/root/week_07", ignore=FilePatternMatcher("**/output.bin*"))
         .add_local_dir("week_08", remote_path="/root/week_08", ignore=FilePatternMatcher("**/output.bin*"))
+        .add_local_dir("week_09", remote_path="/root/week_09", ignore=FilePatternMatcher("**/output.bin*"))
         .add_local_file("scripts/monitor_gpu.py", remote_path="/root/monitor_gpu.py")
 )
 
