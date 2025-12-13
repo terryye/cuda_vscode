@@ -6,7 +6,8 @@
                 "${workspaceFolder}/**",
                 "/usr/lib/x86_64-linux-gnu/openmpi/include",
                 "/usr/local/cuda/include",
-                "/usr/local/cuda-*/include"
+                "/usr/local/cuda-*/include",
+                "/usr/include/nvshmem_13/"
             ],
             "defines": [
                 "__CUDACC__",
