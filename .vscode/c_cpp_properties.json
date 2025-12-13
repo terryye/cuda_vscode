@@ -1,6 +1,24 @@
 {
     "configurations": [
         {
+            "name": "Mac",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/headers/cuda13/",
+                "${workspaceFolder}/headers/openmpi/",
+                "${workspaceFolder}/headers/nvshmem13/",
+                "${workspaceFolder}/headers/nccl/"
+            ],
+            "defines": ["__CUDACC__", "__NVCC__", "CUDA=1"],
+            "forcedInclude": [
+                "${workspaceFolder}/headers/cuda13/cuda_runtime.h"
+            ],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "macos-clang-arm64" // or macos-clang-x64
+        },
+        {
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
@@ -9,14 +27,8 @@
                 "/usr/local/cuda-*/include",
                 "/usr/include/nvshmem_13/"
             ],
-            "defines": [
-                "__CUDACC__",
-                "__NVCC__",
-                "CUDA=1"
-            ],
-            "forcedInclude": [
-                "/usr/local/cuda/include/cuda_runtime.h"
-            ],
+            "defines": ["__CUDACC__", "__NVCC__", "CUDA=1"],
+            "forcedInclude": ["/usr/local/cuda/include/cuda_runtime.h"],
             "compilerPath": "/usr/local/cuda/bin/nvcc",
             "cStandard": "c11",
             "cppStandard": "c++14",
