@@ -5,6 +5,7 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/headers/cuda13/",
+                "${workspaceFolder}/headers/cuda13/cccl/",
                 "${workspaceFolder}/headers/openmpi/",
                 "${workspaceFolder}/headers/nvshmem13/",
                 "${workspaceFolder}/headers/nccl/"
