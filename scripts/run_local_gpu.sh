@@ -22,8 +22,6 @@ fi
 # Get the directory containing this script
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 
-COMPUTE_CAPABILITY=$(nvidia-smi --query-gpu=compute_cap --format=csv,noheader | head -1 | tr -d ' ')
-ARCH="sm_${COMPUTE_CAPABILITY/./}"
 # compile and run the code
 nvcc -DCUDA=1 -g -G -rdc=true \
        -lstdc++ \
