@@ -27,3 +27,13 @@ sudo apt-get install -y \
     cuda-toolkit-${CUDA_VER_MAJOR}-${CUDA_VER_MINOR} \
     libnvshmem3-cuda-${CUDA_VER_MAJOR} \
     libnvshmem3-dev-cuda-${CUDA_VER_MAJOR}
+
+sudo apt-get install -y libnccl2 libnccl-dev
+
+cat >> ~/.bashrc << 'EOF'
+
+# NVIDIA CUDA Toolkit
+export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+EOF
+source ~/.bashrc
