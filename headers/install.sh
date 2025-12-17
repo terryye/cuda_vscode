@@ -1,14 +1,21 @@
 #!/bin/bash
 set -eux
 
-CUDA_VERSION=$(nvcc --version | grep release | awk '{print $5}' | cut -d'.' -f1);
+CUDA_VERSION=$(nvidia-smi | grep "CUDA" | grep -oP 'CUDA Version: \K[0-9.]+')
+CUDA_VER_MAJOR=$(echo $CUDA_VERSION | cut -d. -f1)
+CUDA_VER_MINOR=$(echo $CUDA_VERSION | cut -d. -f2)
 
-# Configuration
-export NVSHMEM_HOME = /usr/include/nvshmem_${CUDA_VERSION}
+# # 1. Download the NVIDIA keyring package
+# wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
+# # 2. Install the keyring
+# sudo dpkg -i cuda-keyring_1.1-1_all.deb
+# # 3. Update your package list
+# sudo apt-get update
+
 
 # Install dependencies
-apt-get update
-apt-get install -y \
+sudo apt-get update
+sudo apt-get install -y \
     wget \
     build-essential \
     cmake \
@@ -17,5 +24,6 @@ apt-get install -y \
     openmpi-bin \
     openmpi-common \
     libopenmpi-dev \
-    libnvshmem3-cuda-${CUDA_VERSION} \
-    libnvshmem3-dev-cuda-${CUDA_VERSION}
+    cuda-toolkit-${CUDA_VER_MAJOR}-${CUDA_VER_MINOR} \
+    libnvshmem3-cuda-${CUDA_VER_MAJOR} \
+    libnvshmem3-dev-cuda-${CUDA_VER_MAJOR}
