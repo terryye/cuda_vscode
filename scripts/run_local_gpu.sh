@@ -26,7 +26,6 @@ COMPUTE_CAPABILITY=$(nvidia-smi --query-gpu=compute_cap --format=csv,noheader | 
 ARCH="sm_${COMPUTE_CAPABILITY/./}"
 # compile and run the code
 nvcc -DCUDA=1 -g -G -rdc=true \
-       -arch=$ARCH \
        -lstdc++ \
        -lm \
        -lmpi \

@@ -39,7 +39,6 @@ ARCH="sm_${COMPUTE_CAPABILITY/./}"
 
 # compile and run the code
 nvcc -DCUDA=1 -g -G -rdc=true \
-       -arch=$ARCH \
        -lmpi \
        -lstdc++ \
        -lm \
