@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -Eeuoa pipefail
+set -x 
 
 mkdir -p ./bin
 rm -rf ./bin/output.bin
@@ -18,14 +19,20 @@ if [ ! -f "$1" ]; then
   exit 2
 fi
 
+# Get the directory containing this script
+SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
+
+COMPUTE_CAPABILITY=$(nvidia-smi --query-gpu=compute_cap --format=csv,noheader | head -1 | tr -d ' ')
+ARCH="sm_${COMPUTE_CAPABILITY/./}"
 # compile and run the code
 nvcc -DCUDA=1 -g -G -rdc=true \
-       -arch=sm_75 \
+       -arch=$ARCH \
        -lstdc++ \
        -lm \
+       -lmpi \
        -lcudart \
        -lcudadevrt \
-        -I/mnt/c/users/terryye/Documents/Github/neu-hpc-for-ai \
+        -I${SCRIPT_DIR}/.. \
         -I/usr/lib/x86_64-linux-gnu/openmpi/include \
         -L/usr/lib/x86_64-linux-gnu/openmpi/lib \
        -o ./bin/output.bin $1
