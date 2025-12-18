@@ -35,6 +35,12 @@ fi
 # Get the directory containing this script
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 
+
+CUDA_VERSION=$(nvidia-smi | grep "CUDA" | grep -oP 'CUDA Version: \K[0-9.]+')
+CUDA_VER_MAJOR=$(echo $CUDA_VERSION | cut -d. -f1)
+CUDA_VER_MINOR=$(echo $CUDA_VERSION | cut -d. -f2)
+
+
 # compile and run the code
 nvcc -DCUDA=1 -g -G -rdc=true \
        -lmpi \
@@ -49,12 +55,12 @@ nvcc -DCUDA=1 -g -G -rdc=true \
        -lnvshmem_device \
         -I${SCRIPT_DIR}/../ \
         -I/usr/lib/x86_64-linux-gnu/openmpi/include \
-        -I/usr/include/nvshmem_12/ \
+        -I/usr/include/nvshmem_${CUDA_VER_MAJOR}/ \
         -L/usr/lib/x86_64-linux-gnu/openmpi/lib \
-        -L/usr/lib/x86_64-linux-gnu/nvshmem/12/ \
+        -L/usr/lib/x86_64-linux-gnu/nvshmem/${CUDA_VER_MAJOR}/ \
        -o ./bin/output.bin $1
 
 # run the program
 mpirun --allow-run-as-root \
-       -np 1 ./bin/output.bin
+       -np 2 ./bin/output.bin
 
