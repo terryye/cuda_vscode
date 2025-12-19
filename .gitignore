@@ -74,6 +74,9 @@ web_modules/
 .cache
 .parcel-cache
 
+# pythoncache
+__pycache__
+
 # Next.js build output
 .next
 out
