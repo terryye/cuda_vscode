@@ -30,9 +30,7 @@
             "options": {
                 "cwd": "${fileDirname}"
             },
-            "problemMatcher": [
-                "$nvcc"
-            ],
+            "problemMatcher": ["$nvcc"],
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -67,9 +65,7 @@
             "options": {
                 "cwd": "${fileDirname}"
             },
-            "problemMatcher": [
-                "$nvcc"
-            ],
+            "problemMatcher": ["$nvcc"],
             "group": "build",
             "detail": "Compiler: nvcc with optimizations, CUDA definitions, and MPI support"
         }

@@ -19,18 +19,8 @@ if [ ! -f "$1" ]; then
   exit 2
 fi
 
-#Check that if $2 is bound , else default to 1
-if [ "$#" -lt 2 ] ; then
-    gpu_count=1
-else
-    gpu_count=1
-fi
-
-# Check that $2 is a number (integer or decimal)
-if ! [[ "$gpu_count" =~ ^-?[0-9]+([.][0-9]+)?$ ]]; then
-  echo "Error: '$gpu_count' is not a valid number."
-  exit 3
-fi
+# assume we are running on a single GPU
+N_GPU=1 
 
 # Get the directory containing this script
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
@@ -56,5 +46,5 @@ nvcc -DCUDA=1 -g -G -rdc=true \
 
 # run the program
 mpirun --allow-run-as-root \
-       -np 1 ./bin/output.bin
+       -np ${N_GPU} ./bin/output.bin
 

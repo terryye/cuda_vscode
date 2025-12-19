@@ -22,7 +22,11 @@
             "type": "cuda-gdb",
             "request": "launch",
             "program": "mpirun",
-            "args": ["-np", "1", "${fileDirname}/bin/${fileBasenameNoExtension}"],
+            "args": [
+                "-np",
+                "1",
+                "${fileDirname}/bin/${fileBasenameNoExtension}"
+            ],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],

@@ -29,7 +29,6 @@ nvcc -DCUDA=1 -g -G -rdc=true \
        -lmpi \
        -lcudart \
        -lcudadevrt \
-        -I${SCRIPT_DIR}/.. \
         -I/usr/lib/x86_64-linux-gnu/openmpi/include \
         -L/usr/lib/x86_64-linux-gnu/openmpi/lib \
        -o ./bin/output.bin $1
