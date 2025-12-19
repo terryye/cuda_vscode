@@ -19,5 +19,6 @@ int main() {
     kernel << <2, 4 >> > ();
     CHECK_CUDA(cudaGetLastError());
     CHECK_CUDA(cudaDeviceSynchronize());
+    printf("Test Pass! \n");
     return 0;
 }

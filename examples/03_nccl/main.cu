@@ -64,5 +64,6 @@ int main(int argc, char* argv[]) {
     cleanup_mpi_nccl(comm);
 
     std::cout << "Rank " << rank << ": Test completed successfully!" << std::endl;
+    printf("Test Pass! \n");
     return 0;
 }

@@ -144,5 +144,6 @@ int main(int argc, char** argv) {
     free(h_c);
 
     MPI_Finalize();
+    printf("Test Pass! \n");
     return 0;
 }

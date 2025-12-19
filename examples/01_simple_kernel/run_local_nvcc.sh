@@ -1,3 +1,3 @@
 #!/bin/bash
 
-../../scripts/run_local_gpu.sh ./main.cu
+../../scripts/local_gpu.sh ./main.cu

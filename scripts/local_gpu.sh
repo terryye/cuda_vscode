@@ -1,7 +1,14 @@
 #!/bin/bash
 
 set -Eeuoa pipefail
-set -x 
+
+
+# Check OS and show alert if Mac or Windows
+os=$(uname -s)
+if [[ "$os" == "Darwin" ]] || [[ "$os" == *"MINGW"* ]] || [[ "$os" == *"CYGWIN"* ]] || [[ "$os" == "MSYS"* ]]; then
+    echo -e "\033[33m Alert: local execution OONLY supported on Linux \033[0m"
+    exit 1
+fi
 
 mkdir -p ./bin
 rm -rf ./bin/output.bin
