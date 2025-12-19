@@ -27,9 +27,14 @@ if [ ! -f "$1" ]; then
   exit 2
 fi
 
-# assume we are running on a single GPU
-N_GPU=1 
-
+# Detect number of visible GPUs using nvidia-smi
+if command -v nvidia-smi >/dev/null 2>&1; then
+  N_GPU=$(nvidia-smi --query-gpu=index --format=csv,noheader 2>/dev/null | wc -l)
+  echo "Number of visible GPUs: $N_GPU"
+else
+  echo "nvidia-smi is not found. please install nvidia driver first" >&2
+  exit 3
+fi
 # Get the directory containing this script
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 
