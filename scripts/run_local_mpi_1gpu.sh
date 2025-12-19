@@ -30,18 +30,11 @@ nvcc -DCUDA=1 -g -G -rdc=true \
        -lmpi \
        -lstdc++ \
        -lm \
-       -lnvidia-ml \
-       -lcuda \
        -lnccl \
        -lcudart \
        -lcudadevrt \
-       -lnvshmem_host \
-       -lnvshmem_device \
-        -I${SCRIPT_DIR}/../ \
-        -I/usr/lib/x86_64-linux-gnu/openmpi/include \
-        -I/usr/include/nvshmem_12/ \
-        -L/usr/lib/x86_64-linux-gnu/openmpi/lib \
-        -L/usr/lib/x86_64-linux-gnu/nvshmem/12/ \
+       -I/usr/lib/x86_64-linux-gnu/openmpi/include \
+       -L/usr/lib/x86_64-linux-gnu/openmpi/lib \
        -o ./bin/output.bin $1
 
 # run the program
