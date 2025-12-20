@@ -68,9 +68,11 @@ cmake --install build
 
 
 cat >> ~/.bashrc << 'EOF'
+
 # NVIDIA CUDA Toolkit
 export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64:${NVSHMEM_PREFIX}/lib:${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
 EOF
 
 export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}
