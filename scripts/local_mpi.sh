@@ -38,6 +38,7 @@ fi
 # Get the directory containing this script
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 
+set -x
 # compile and run the code
 nvcc -DCUDA=1 -g -G -rdc=true \
        -lmpi \
