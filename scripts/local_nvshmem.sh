@@ -56,8 +56,6 @@ nvcc -DCUDA=1 -g -G -rdc=true \
        -lmpi \
        -lstdc++ \
        -lm \
-       -lnvshmem_host \
-       -lnvshmem_device \
        -lnvidia-ml \
        -lcuda \
        -lnccl \

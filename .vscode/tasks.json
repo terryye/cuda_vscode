@@ -36,6 +36,49 @@
                 "isDefault": true
             },
             "detail": "Compiler: nvcc with debug flags, CUDA definitions, and MPI support"
+        },{
+            "label": "nvcc build with nvshmem",
+            "type": "shell",
+            "command": "mkdir",
+            "args": [
+                "-p",
+                "${fileDirname}/bin",
+                "&&",
+                "nvcc",
+                "-DCUDA=1",
+                "-g",
+                "-G",
+                "-rdc=true",
+                "-lmpi",
+                "-lstdc++",
+                "-lm",
+                "-lnvshmem_host",
+                "-lnvshmem_device",
+                "-lnvidia-ml",
+                "-lcuda",
+                "-lnccl",
+                "-lcudart",
+                "-lcudadevrt",
+                "-I${workspaceFolder}",
+                "-I/opt/nvshmem/include/",
+                "-I/usr/lib/x86_64-linux-gnu/openmpi/include",
+                "-L/usr/lib/x86_64-linux-gnu/openmpi/lib",        
+                "-L/opt/nvshmem/lib/",
+                "-Xlinker",
+                "-rpath=/opt/nvshmem/lib",
+                "${file}",
+                "-o",
+                "${fileDirname}/bin/${fileBasenameNoExtension}"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": ["$nvcc"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Compiler: nvcc with debug flags, CUDA definitions, and MPI support"
         },
         {
             "label": "nvcc build optimized",
