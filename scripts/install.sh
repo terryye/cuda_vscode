@@ -58,56 +58,61 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
     libnccl-dev \
     cuda-toolkit-${CUDA_VER_MAJOR}-${CUDA_VER_MINOR} \
 
-NVSHMEM_VERSION="3.4.5-0"
-NVSHMEM_PREFIX="/opt/nvshmem"
 
-cd /tmp && \
-wget -O nvshmem-${NVSHMEM_VERSION}.tar.gz \
-  https://github.com/NVIDIA/nvshmem/archive/refs/tags/v${NVSHMEM_VERSION}.tar.gz && \
-tar xvf nvshmem-${NVSHMEM_VERSION}.tar.gz && \
-cd nvshmem-${NVSHMEM_VERSION} && \
-\
-# Disable IBRC/UCX via env so IB (verbs.h) is never needed
-export CUDA_HOME=/usr/local/cuda \
-  NVSHMEM_IBRC_SUPPORT=0 \
-  NVSHMEM_UCX_SUPPORT=0 && \
-\
-# Configure
-cmake -S . -B build \
-  -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_INSTALL_PREFIX=${NVSHMEM_PREFIX} \
-  -DNVSHMEM_PREFIX=${NVSHMEM_PREFIX} \
-  -DNVSHMEM_MPI_SUPPORT=1 \
-  -DNVSHMEM_SHMEM_SUPPORT=0 \
-  -DNVSHMEM_UCX_SUPPORT=0 \
-  -DNVSHMEM_LIBFABRIC_SUPPORT=0 \
-  -DNVSHMEM_IBRC_SUPPORT=0 \
-  -DNVSHMEM_BUILD_TESTS=0 \
-  -DNVSHMEM_BUILD_EXAMPLES=0 \
-  -DNVSHMEM_BUILD_PACKAGES=0 \
-  -DNVSHMEM_BUILD_PYTHON_LIB=OFF \
-  -DCUDA_ARCHITECTURES=90 && \
-\
-# Build and install
-cmake --build build -j && \
-sudo cmake --install build
+#if parameter has "no-nvshmem", skip nvshmem installation
+if [[ " $@ " =~ " no-nvshmem " ]]; then 
 
-# Configure NVSHMEM and OpenMPI environment
-#export OMPI_ALLOW_RUN_AS_ROOT="1"
-#export OMPI_ALLOW_RUN_AS_ROOT_CONFIRM="1"
-#export PMIX_MCA_gds="hash"
-#export OMPI_MCA_btl_vader_single_copy_mechanism="none"
+  NVSHMEM_VERSION="3.4.5-0"
+  NVSHMEM_PREFIX="/opt/nvshmem"
+  echo "Skipping NVSHMEM installation as per user request."
+  cd /tmp && \
+  wget -O nvshmem-${NVSHMEM_VERSION}.tar.gz \
+    https://github.com/NVIDIA/nvshmem/archive/refs/tags/v${NVSHMEM_VERSION}.tar.gz && \
+  tar xvf nvshmem-${NVSHMEM_VERSION}.tar.gz && \
+  cd nvshmem-${NVSHMEM_VERSION} && \
+  \
+  # Disable IBRC/UCX via env so IB (verbs.h) is never needed
+  export CUDA_HOME=/usr/local/cuda \
+    NVSHMEM_IBRC_SUPPORT=0 \
+    NVSHMEM_UCX_SUPPORT=0 && \
+  \
+  # Configure
+  cmake -S . -B build \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=${NVSHMEM_PREFIX} \
+    -DNVSHMEM_PREFIX=${NVSHMEM_PREFIX} \
+    -DNVSHMEM_MPI_SUPPORT=1 \
+    -DNVSHMEM_SHMEM_SUPPORT=0 \
+    -DNVSHMEM_UCX_SUPPORT=0 \
+    -DNVSHMEM_LIBFABRIC_SUPPORT=0 \
+    -DNVSHMEM_IBRC_SUPPORT=0 \
+    -DNVSHMEM_BUILD_TESTS=0 \
+    -DNVSHMEM_BUILD_EXAMPLES=0 \
+    -DNVSHMEM_BUILD_PACKAGES=0 \
+    -DNVSHMEM_BUILD_PYTHON_LIB=OFF \
+    -DCUDA_ARCHITECTURES=90 && \
+  \
+  # Build and install
+  cmake --build build -j && \
+  sudo cmake --install build
 
+  # Configure NVSHMEM and OpenMPI environment
+  #export OMPI_ALLOW_RUN_AS_ROOT="1"
+  #export OMPI_ALLOW_RUN_AS_ROOT_CONFIRM="1"
+  #export PMIX_MCA_gds="hash"
+  #export OMPI_MCA_btl_vader_single_copy_mechanism="none"
+  NVSHMEM_LIB_PATH="${NVSHMEM_PREFIX}/lib"
+fi
 
 cat >> ~/.bashrc << 'EOF'
 
 # NVIDIA CUDA Toolkit
 export PATH=/usr/local/cuda/bin:${PATH:+:${PATH}}
-export LD_LIBRARY_PATH=/usr/local/cuda/lib64:${NVSHMEM_PREFIX}/lib:${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64:${NVSHMEM_LIB_PATH}:${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
 EOF
 
 # show install success message
-echo -e "\033[1;32mNVIDIA CUDA Toolkit, NCCL, OpenMPI, and NVSHMEM have been successfully installed.\033[0m"
+echo -e "\033[1;32mNVIDIA CUDA Tool have been successfully installed.\033[0m"
 # remind user to source bashrc, in yellow text
 echo -e "Please restart your terminal or run '\033[1;33msource ~/.bashrc\033[0m' to apply environment changes."
