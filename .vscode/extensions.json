@@ -1,0 +1,6 @@
+{
+    "recommendations": [
+        // nsight-vscode
+        "NVIDIA.nsight-vscode-extensions"
+    ]
+}
