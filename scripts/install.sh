@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eux
+set -ex
 
 ## Make sure NVIDIA GPU drivers already installed.
 ## Vast.ai cloud instances have them by default.

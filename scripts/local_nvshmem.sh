@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -Eeuoa pipefail
-
 mkdir -p ./bin
 rm -rf ./bin/output.bin
 rm -rf ./bin/*.bin.dSYM
@@ -41,19 +39,14 @@ else
   exit 3
 fi
 
+export OMPI_MCA_btl_base_verbose=100 
 
-
-# Get the directory containing this script
-SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
-
-
-CUDA_VERSION=$(nvidia-smi | grep "CUDA" | grep -oP 'CUDA Version: \K[0-9.]+')
-CUDA_VER_MAJOR=$(echo $CUDA_VERSION | cut -d. -f1)
-CUDA_VER_MINOR=$(echo $CUDA_VERSION | cut -d. -f2)
 
 set -x
 # compile and run the code
 nvcc -DCUDA=1 -g -G -rdc=true \
+       -ccbin \
+       mpicxx \
        -lmpi \
        -lstdc++ \
        -lm \
@@ -68,9 +61,9 @@ nvcc -DCUDA=1 -g -G -rdc=true \
         -I/usr/lib/x86_64-linux-gnu/openmpi/include \
         -L/usr/lib/x86_64-linux-gnu/openmpi/lib \
         -L/opt/nvshmem/lib/ \
-      -Xlinker -rpath=/opt/nvshmem/lib \
+        -Xlinker -rpath=/opt/nvshmem/lib \
        -o ./bin/output.bin $1
 
 # run the program
-mpirun --allow-run-as-root \
-       -np ${N_GPU} ./bin/output.bin
+echo "this might take a couple of miniutes to start if you are running for the first time..."
+mpirun --allow-run-as-root -np ${N_GPU} ./bin/output.bin
