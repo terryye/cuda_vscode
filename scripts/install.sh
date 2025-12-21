@@ -99,7 +99,7 @@ sudo cmake --install build
 #export OMPI_MCA_btl_vader_single_copy_mechanism="none"
 
 
-cat >> ~/.profile << 'EOF'
+cat >> ~/.bashrc << 'EOF'
 
 # NVIDIA CUDA Toolkit
 export PATH=/usr/local/cuda/bin:${PATH:+:${PATH}}
@@ -107,4 +107,7 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:${NVSHMEM_PREFIX}/lib:${LD_LIBRARY_
 
 EOF
 
-source ~/.profile
+# show install success message
+echo -e "\033[1;32mNVIDIA CUDA Toolkit, NCCL, OpenMPI, and NVSHMEM have been successfully installed.\033[0m"
+# remind user to source bashrc, in yellow text
+echo -e "Please restart your terminal or run '\033[1;33msource ~/.bashrc\033[0m' to apply environment changes."
