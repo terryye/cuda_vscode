@@ -26,7 +26,7 @@
                 "/usr/lib/x86_64-linux-gnu/openmpi/include",
                 "/usr/local/cuda/include",
                 "/usr/local/cuda-*/include",
-                "/opt/nvshmem/nvshmem/include",
+                "/opt/nvshmem/include",
                 "/usr/include/nvshmem_*/"
             ],
             "defines": ["__CUDACC__", "__NVCC__", "CUDA=1"],

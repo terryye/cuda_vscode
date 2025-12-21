@@ -23,7 +23,8 @@ fi
 if command -v nvidia-smi >/dev/null 2>&1; then
   N_GPU=$(nvidia-smi --query-gpu=index --format=csv,noheader 2>/dev/null | wc -l)
   echo "Number of visible GPUs: $N_GPU"
-  N_P2P_PAIR=$(nvidia-smi topo -p2p w | grep "GPU"| grep -o '\bOK\b'  | wc -l)
+  # Allow zero matches without exiting under `set -e -o pipefail`
+  N_P2P_PAIR=$( { nvidia-smi topo -p2p w | grep "GPU" | grep -o '\bOK\b' || true; } | wc -l )
   echo "Number of P2P capable GPU pairs: $N_P2P_PAIR"
 
   if [ "$N_P2P_PAIR" -lt "$((N_GPU*(N_GPU-1)/2))" ]; then

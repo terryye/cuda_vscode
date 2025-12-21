@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "CUDA C++: Launch",
+            "name": "CUDA C++: DEBUG",
             "type": "cuda-gdb",
             "request": "launch",
             "program": "${fileDirname}/bin/${fileBasenameNoExtension}",
@@ -13,42 +13,18 @@
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
-            "externalConsole": false,
-            "MIMode": "gdb",
             "preLaunchTask": "nvcc build active file"
         },
         {
-            "name": "MPI: Launch",
+            "name": "CUDA NVSHMEM: DEBUG",
             "type": "cuda-gdb",
             "request": "launch",
-            "program": "mpirun",
+            "program": "${fileDirname}/bin/${fileBasenameNoExtension}",
             "args": [
-                "-np",
-                "1",
-                "${fileDirname}/bin/${fileBasenameNoExtension}"
             ],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
-            "externalConsole": false,
-            "MIMode": "gdb",
-            "preLaunchTask": "nvcc build active file"
-        },
-        {
-            "name": "NVSHMEM: Launch",
-            "type": "cuda-gdb",
-            "request": "launch",
-            "program": "mpirun",
-            "args": [
-                "-np",
-                "1",
-                "${fileDirname}/bin/${fileBasenameNoExtension}"
-            ],
-            "stopAtEntry": false,
-            "cwd": "${fileDirname}",
-            "environment": [],
-            "externalConsole": false,
-            "MIMode": "gdb",
             "preLaunchTask": "nvcc build with nvshmem"
         },
         {

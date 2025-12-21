@@ -61,5 +61,12 @@
         "cassert": "cpp",
         "type_traits": "cpp"
     },
-    "C_Cpp.errorSquiggles": "enabledIfIncludesResolve"
+    "C_Cpp.errorSquiggles": "enabledIfIncludesResolve",
+    "terminal.integrated.profiles.linux": {
+        "bash": {
+            "path": "/bin/bash",
+            "args": ["--login"]
+        }
+    },
+    "terminal.integrated.defaultProfile.linux": "bash"
 }

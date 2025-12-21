@@ -6,7 +6,7 @@ set -Eeuoa pipefail
 # Check OS and show alert if Mac or Windows
 os=$(uname -s)
 if [[ "$os" == "Darwin" ]] || [[ "$os" == *"MINGW"* ]] || [[ "$os" == *"CYGWIN"* ]] || [[ "$os" == "MSYS"* ]]; then
-    echo -e "\033[33m Alert: local execution OONLY supported on Linux \033[0m"
+    echo -e "\033[33m Alert: local execution ONLY supported on Linux \033[0m"
     exit 1
 fi
 
