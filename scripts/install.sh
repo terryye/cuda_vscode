@@ -49,8 +49,6 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
     wget \
     build-essential \
     cmake \
-    libhwloc-dev \
-    libnuma-dev \
     openmpi-bin \
     openmpi-common \
     libopenmpi-dev \
@@ -60,8 +58,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
 
 
 #if parameter has "no-nvshmem", skip nvshmem installation
-if [[ " $@ " =~ " no-nvshmem " ]]; then 
-
+if [[ ! " $@ " =~ " no-nvshmem " ]]; then 
   NVSHMEM_VERSION="3.4.5-0"
   NVSHMEM_PREFIX="/opt/nvshmem"
   echo "Skipping NVSHMEM installation as per user request."
