@@ -18,7 +18,7 @@ CUDA is a closed ecosystem with its own extended C++ syntax and toolchain. Compa
 
 This repo packages the **headers, VS Code config, and example projects** I use in my own learning, matching the three-level strategy:
 
-1. **Level 1 – Simple, Free, Runnable**: Mac + VS Code + Modal (cloud GPU) – what this repo focuses on most.
+1. **Level 1 – Simple, Free, Runnable**: Mac + VS Code + Modal.com (cloud GPU) – what this repo focuses on most.
 2. **Level 2 – Breakpoint Debugging**: Mac + VS Code Remote SSH + KVM VM or WSL2.3.
 3. **Level 3 – Deep Profiling**: Windows + Visual Studio + Nsight VSE / Compute.
 
