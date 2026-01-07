@@ -16,12 +16,13 @@ This repo is a **scaffolding / starter kit** that lets you:
 
 CUDA is a closed ecosystem with its own extended C++ syntax and toolchain. Compared with Java/Node.js/standard C++, setting up a usable environment—especially on macOS—is not plug-and-play.
 
-This repo packages the **headers, VS Code config, and example projects** I use in my own learning, matching the two-level strategy:
+This repo packages the **headers, VS Code config, and example projects** I use in my own learning, matching the three-level strategy:
 
 1. **Level 1 – Simple, Free, Runnable**: Mac + VS Code + Modal (cloud GPU) – what this repo focuses on most.
-2. **Level 2 – Breakpoint Debugging**: Mac + VS Code Remote SSH + KVM VM or WSL2.
+2. **Level 2 – Breakpoint Debugging**: Mac + VS Code Remote SSH + KVM VM or WSL2.3.
+3. **Level 3 – Deep Profiling**: Windows + Visual Studio + Nsight VSE / Compute.
 
-If all you want at first is: _“Write CUDA on my Mac in VS Code, hit Run, see `Test Pass`”_ – this repo is for you.
+    If all you want at first is: _“Write CUDA on my Mac in VS Code, hit Run, see `Test Pass`”_ – this repo is for you.
 
 ---
 
