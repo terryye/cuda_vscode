@@ -12,7 +12,7 @@ This repo is a **scaffolding / starter kit** that lets you:
 
 ---
 
-## 1. Why this Repo (Preface)
+## 1. Why this Repo
 
 CUDA is a closed ecosystem with its own extended C++ syntax and toolchain. Compared with Java/Node.js/standard C++, setting up a usable environment—especially on macOS—is not plug-and-play.
 
@@ -69,7 +69,7 @@ This repo packages the **headers, VS Code config, and example projects** I use i
 ### 3.2 Clone This Repo
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/terryye/cuda_vscode.git
 cd cuda_vscode
 ```
 
@@ -182,7 +182,7 @@ This gives you the “king of debugging” experience.
 
 ---
 
-## 6. Hardware / Cloud Notes (Summary from the Article)
+## 6. Hardware / Cloud Notes
 
 -   **Docker‑based GPU clouds (e.g., Modal.com, Most of the GPU clouds)**
 
