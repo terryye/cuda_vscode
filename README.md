@@ -63,7 +63,7 @@ This repo packages the **headers, VS Code config, and example projects** I use i
 -   Modal account and CLI:
     ```bash
     pip install modal
-    modal token set
+    modal setup
     ```
 
 ### 3.2 Clone This Repo
